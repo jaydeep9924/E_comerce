@@ -1,0 +1,93 @@
+
+<%- include('header') %>
+
+<% if(typeof alert != 'undefined') { %>
+    <% alert.forEach(function(error) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <%= error.msg %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+    <% }) %>
+<% } %>
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="checkout-section spad">
+      <div class="container">
+          <form action="/user/payment" method="post" class="checkout-form">
+              <div class="row">
+                  <div class="col-lg-6">
+                      
+                      <h4>Biiling Details</h4>
+                      <div class="row">
+                          <div class="col-lg-12">
+                              <label for="fir">Name<span>*</span></label>
+                              <input type="text" name="name">
+                          </div>
+                          <div class="col-lg-12">
+                              <label for="cun-name">Company Name</label>
+                              <input type="text" name="cum_name">
+                          </div>
+                          <div class="col-lg-12">
+                              <label for="cun">Country<span>*</span></label>
+                              <input type="text" name="coun">
+                          </div>
+                          <div class="col-lg-12">
+                              <label for="street">Street Address<span>*</span></label>
+                              <input type="text" name="street" class="street-first">
+                          </div>
+                          <div class="col-lg-12">
+                              <label for="zip">Postcode / ZIP (optional)</label>
+                              <input type="number" name="zip">
+                          </div>
+                          <div class="col-lg-12">
+                              <label for="town">Town / City<span>*</span></label>
+                              <input type="text" name="town">
+                          </div>
+                          <div class="col-lg-6">
+                              <label for="email">Email Address<span>*</span></label>
+                              <input type="text" value="<%= locals.user.username %>" name="email">
+                          </div>
+                          <div class="col-lg-6">
+                              <label for="phone">Phone<span>*</span></label>
+                              <input type="number" name="phone">
+                          </div>
+                          
+                      </div>
+                  </div>
+                  <div class="col-lg-6">
+                     
+                      <div class="place-order">
+                          <h4>Your Order</h4>
+                          <div class="order-total">
+                              <ul class="order-table">
+                                  <li>Product <span>Total</span></li>
+                                  <% var total = 0; for(var pd of cartrecord){ %>
+
+                                    <input type="hidden" value="<%= pd.quantity %>">
+                                    <li class="fw-normal"><%= pd.productId.productName %> <span>₹ <%= pd.productId.productPrice*pd.quantity %></span></li>
+                                    <% total += pd.productId.productPrice*pd.quantity %>
+                                  <% } %>
+                                 
+                                  <li class="total-price ">Total <span>₹ <%= total %></span></li>
+                                  <input type="hidden" value="<%= total %>" name="totalpayment">
+                              </ul>
+                             
+                              <div class="order-btn">
+                                  <button type="submit" class="site-btn place-btn">Place Order</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </section>
+  <!-- Shopping Cart Section End -->
+
+
+
+
+
+<%- include('footer') %>

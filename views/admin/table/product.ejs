@@ -1,0 +1,113 @@
+
+<%- include('../header') %>
+
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <form class="mb-5">
+            <div class="input-group">
+                <input class="form-control" type="text" name="search" placeholder="Search.....">
+                <input type="submit" class="btn-primary ms-2 " name="searching" value="Search">
+            </div>
+        </form>
+        <h6 class="mb-4">Product Table</h6>
+        <div class="table-responsive">
+            <form action="/product/checkbox" method="post">
+            <table class="table">
+                <button type="submit" class="btn btn-primary">All Active / Deactive</button>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="allCheckBox">
+                                </th>    
+                                <th scope="col">#</th>
+                                <th scope="col">Category Name</th>
+                                <th scope="col">SubCategory Name</th>
+                                <th scope="col">Extracategory Name</th>
+                                <th scope="col">Type Name</th>
+                                <th scope="col">Brand Name</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Product Price</th>
+                                <th scope="col">Product old Price</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Rating</th>
+                                <th scope="col">Product Image</th>
+                                <th scope="col">Product Images</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">CreatedAt Date</th>
+                                <th scope="col">updatedAt Date</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <% var count=1; for(var pro of record){ %>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" name="checkBoxClass" class="checkBoxClass" value="<%= pro.id %>">
+                                    </th>
+                                    <th scope="row"><%= count %></th>
+                                    <td><%= pro.categoryId['categoryName'] %></td>
+                                    <td><%= pro.subcategoryId['subcategoryName'] %></td>
+                                    <td><%= pro.extracategoryId['extracategoryName'] %></td>
+                                    <td><%= pro.typeId['typename'] %></td>
+                                    <td><%= pro.brandId['brandname'] %></td>
+                                    <td><%= pro.productName %></td>
+                                    <td><%= pro.productPrice %></td>
+                                    <td><%= pro.productOldPrice %></td>
+                                    <td class="product"><%= pro.desc %></td>
+                                    <td><%= pro.rating %></td>
+                                    <td><img src="<%= pro.productImg %>" height="200px"></td>
+                                    <td>
+                                        <% for(var i=0; i<pro.productImages.length; i++){ %>
+                                            <img src="<%= pro.productImages[i] %>" height="50px" width="50px">
+                                        <% } %>
+                                    </td>
+
+                                    <td>
+                                    <% if(pro.isActive===true){ %>
+                                        <a href="?active=<%= pro.id %>&page=<%= countdata %>&search=<%= searchdata %>" class="btn btn-success">Active</a>
+                                    <% } else{ %>
+                                        <a href="?deactive=<%= pro.id %>&page=<%= countdata %>&search=<%= searchdata %>" class="btn btn-danger">Deactive</a>
+                                    <% } %> 
+                                    </td>
+
+                                    <td><%= pro.createdAt %></td>
+                                    <td><%= pro.updatedAt %></td>
+                                    <td>
+                                        <a href="/product/deletedata/<%= pro.id %>">Delete</a>
+                                    </td>
+
+                            <% count++;} %>
+
+                            <tr>
+                                <% for(var i=1; i<=totalpage; i++){ %>
+                                    <td>
+                                        <a style=" padding: 10px 12px; background-color: #2A3F54; color: white;" href="?page=<%= i %>&search=<%= searchdata %>"><%= i %></a>
+                                    </td>
+                                <% } %>
+                                
+                            </tr>
+
+                        </tbody>
+            </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<%- include('../footer') %>
+
+<script>
+
+    const movie = document.querySelectorAll('.product');
+    
+    movie.forEach((desc)=>{
+      if(desc.innerText.length > 100){
+        desc.innerText = desc.innerText.substring(0,100)+'......';
+      }
+    }) 
+    
+    
+    </script>

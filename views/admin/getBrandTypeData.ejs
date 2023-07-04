@@ -1,0 +1,23 @@
+
+
+<div class="mb-3">
+  <label for="inputUserName">Select Type</label>
+  <select class="form-control mt-2" name="typeId" id="typeId" >
+    <option value="">--select Type--</option>
+      <% for(var ty of typerecord){ %>
+        <option value="<%= ty.id %>"><%= ty.typename %></option>
+      <% } %>
+  </select>
+  <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.typeId!='undefined' )? errors.typeId.msg:''%></p>
+</div>
+
+<div class="mb-3">
+  <label for="inputUserName">Select Brand</label>
+  <select class="form-control mt-2" name="brandId" id="brandId" >
+    <option value="">--select Brand--</option>
+    <% for(var br of brandrecord){ %>
+      <option value="<%= br.id %>"><%= br.brandname %></option>
+    <% } %>
+  </select>
+  <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.brandId!='undefined' )? errors.brandId.msg:''%></p>
+</div>

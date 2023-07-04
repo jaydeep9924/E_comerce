@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fashi | Template</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/frontPannel/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+
+
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="login-form">
+                        <h2 class="">Payment</h2>
+
+                        <form action="/user/paymentstripe" method="post">                          
+
+                            <div class="group-input">
+                                <input type="hidden" value="<%= data.id %>" name="paymentId">
+                                <label class="fw-bold">Name :- <%= data.name %></label>
+                                <label class="fw-bold">Email :- <%= data.email %></label>
+                                <input type="hidden" value="<%= data.email %>" name="email">
+                                <label class="fw-bold">Company Name :- <%= data.cum_name %></label>
+                                <label class="fw-bold">Address :- <%= data.street %></label>
+                                <label class="fw-bold">Zip Code :- <%= data.zip %></label>
+                            </div>
+                            <input type="hidden" value="<%= data.totalpayment %>" name="totalamount">
+                            <h3 class="mb-3 fs-2 fw-bold">Total Payment :- <%= data.totalpayment %></h3>
+                          
+                            <button type="submit" class="site-btn login-btn">Pay Amount</button>
+                        </form>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Js Plugins -->
+    <script src="/frontPannel/js/jquery-3.3.1.min.js"></script>
+    <script src="/frontPannel/js/bootstrap.min.js"></script>
+    <script src="/frontPannel/js/jquery-ui.min.js"></script>
+    <script src="/frontPannel/js/jquery.countdown.min.js"></script>
+    <script src="/frontPannel/js/jquery.nice-select.min.js"></script>
+    <script src="/frontPannel/js/jquery.zoom.min.js"></script>
+    <script src="/frontPannel/js/jquery.dd.min.js"></script>
+    <script src="/frontPannel/js/jquery.slicknav.js"></script>
+    <script src="/frontPannel/js/owl.carousel.min.js"></script>
+    <script src="/frontPannel/js/main.js"></script>
+</body>
+
+</html

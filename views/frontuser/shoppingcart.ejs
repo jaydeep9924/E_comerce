@@ -1,0 +1,225 @@
+
+
+<%- include('header') %>
+
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="breadcrumb-text product-more">
+                      <a href="/user"><i class="fa fa-home"></i> Home</a>
+                      <a href="/shop">Shop</a>
+                      <span>Shopping Cart</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Breadcrumb Section Begin -->
+
+  <!-- Shopping Cart Section Begin -->
+  <section class="shopping-cart spad">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="cart-table">
+                    <form >
+                      <table>
+                          <thead>
+                              <tr>
+                                  <th>Image</th>
+                                  <th class="p-name">Product Name</th>
+                                  <th>Price</th>
+                                  <th>Quantity</th>
+                                  <th>Total</th>
+                                  <th><i class="ti-close"></i></th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <input type="hidden" value="<%= cartData %>" id="cartCount">
+                            <% var total=0; var i=0; for(var pro of productrecord){ %>
+                              <tr>
+
+                                <td class="cart-pic first-row"><img src="<%= pro.productId.productImg %>" height="250">
+                                
+                                </td>
+                                  <td class="cart-title first-row">
+                                      <h5><%= pro.productId.productName %></h5>
+                                  </td>
+                                  <td class="p-price first-row" id="productPrice<%= i %>">₹ <%= pro.productId.productPrice %></td>
+                                  <td class="qua-col first-row form">
+                                      <div class="d-flex">
+                                        <div class="btn btn-warning" onclick="return decreaseValue(`<%= pro.id %>`,<%= i %>)">-</div>
+                                          <input type="text" style="width: 50px; border-radius: 6px;" class="text-center" value="<%= pro.quantity %>" id="quantity<%= i %>" >
+                                        <div class="btn btn-warning" onclick="return increaseValue(`<%= pro.id %>`,<%= i %>)">+</div>
+                                      </div>
+                                  </td>
+                                  <td class="total-price first-row"><span>₹</span><span id="totalPrice<%= i %>"><%= pro.productId.productPrice*pro.quantity %></span></td>
+                                  <td class="close-td first-row"><a href="/user/deletcart/<%= pro.id %>"><i class="ti-close"></i></a></td>
+                              </tr
+                            <% total += pro.productId.productPrice*pro.quantity; %>
+                            <% i++;} %>
+                            
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-4">
+                          <div class="cart-buttons">
+                              <a href="#" class="primary-btn continue-shop">Continue shopping</a>
+                              <a href="#" class="primary-btn up-cart">Update cart</a>
+                          </div>
+                          <div class="discount-coupon">
+                              <h6>Discount Codes</h6>
+                              
+                                  <input type="text" placeholder="Enter your codes">
+                                  <button type="submit" class="site-btn coupon-btn">Apply</button>
+                              
+                          </div>
+                      </div>
+                      <div class="col-lg-4 offset-lg-4">
+                          <div class="proceed-checkout">
+                              <ul>
+                                  <li class="subtotal">Subtotal <span id="subtotal"> <%= total %></span> <span>₹</span></li>
+                                  <li class="cart-total"> Total <span id="grandtotal" > <%= total %></span> <span>₹</span> </li>
+                                 
+                              </ul>
+                              
+                                <a href="/user/checkoutdata" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                              
+                          </div>
+                      </div>
+                    </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!-- Shopping Cart Section End -->
+
+  <!-- Partner Logo Section Begin -->
+  <div class="partner-logo">
+      <div class="container">
+          <div class="logo-carousel owl-carousel">
+              <div class="logo-item">
+                  <div class="tablecell-inner">
+                      <img src="/img/logo-carousel/logo-1.png" alt="">
+                  </div>
+              </div>
+              <div class="logo-item">
+                  <div class="tablecell-inner">
+                      <img src="/img/logo-carousel/logo-2.png" alt="">
+                  </div>
+              </div>
+              <div class="logo-item">
+                  <div class="tablecell-inner">
+                      <img src="/img/logo-carousel/logo-3.png" alt="">
+                  </div>
+              </div>
+              <div class="logo-item">
+                  <div class="tablecell-inner">
+                      <img src="/img/logo-carousel/logo-4.png" alt="">
+                  </div>
+              </div>
+              <div class="logo-item">
+                  <div class="tablecell-inner">
+                      <img src="/img/logo-carousel/logo-5.png" alt="">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Partner Logo Section End -->
+
+
+  <script>
+    
+  
+    function increaseValue(Pid,pos){
+
+        var value = parseInt(document.getElementById('quantity'+pos).value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        var store = document.getElementById('quantity'+pos).value = value;
+ 
+        var price = document.getElementById('productPrice'+pos).innerHTML;
+        var abc = parseInt(price.slice(1));
+        document.getElementById('totalPrice'+pos).innerHTML = abc*store;
+
+        var count = document.getElementById('cartCount').value;
+        var allprice = 0;
+            for(var i=0; i<count; i++){
+                var total = parseInt(document.getElementById('totalPrice'+i).innerHTML)
+                allprice += total;
+            };
+            
+        document.getElementById('subtotal').innerHTML = allprice;
+        document.getElementById('grandtotal').innerHTML = allprice;
+
+        $.ajax({
+            url : '/user/quantity',
+            type : 'post',
+            data : {
+                quantity : store,
+                productId : Pid
+            },
+            success : (res)=>{
+                new Noty({
+                    type: 'success',
+                    text: 'Quantity Added',
+                    layout : 'topCenter',
+                    theme: 'metroui', 
+                    timeout : 1000   
+                }).show();
+            }
+        });
+    }
+
+    function decreaseValue(Pid,pos){
+
+        var value = parseInt(document.getElementById('quantity'+pos).value, 10);
+        value = isNaN(value) ? 0 : value;
+        value < 1 ? value = 1 : '';
+        value--;
+        var store = document.getElementById('quantity'+pos).value = value;
+
+        var price = document.getElementById('productPrice'+pos).innerHTML;
+        var abc = parseInt(price.slice(1));
+        document.getElementById('totalPrice'+pos).innerHTML = abc*store;
+
+        var count = document.getElementById('cartCount').value;
+        var allprice = 0;
+            for(var i=0; i<count; i++){
+                var total = parseInt(document.getElementById('totalPrice'+i).innerHTML)
+                allprice += total;
+            };
+            
+        document.getElementById('subtotal').innerHTML = allprice;
+        document.getElementById('grandtotal').innerHTML = allprice;
+
+        $.ajax({
+            url : '/user/quantity',
+            type : 'post',
+            data : {
+                quantity : store,
+                productId : Pid
+            },
+            success : (res)=>{
+                new Noty({
+                    type: 'success',
+                    text: 'Quantity Added',
+                    layout : 'topCenter',
+                    theme: 'metroui', 
+                    timeout : 1000   
+                }).show();
+            }
+        });
+    }
+
+</script>
+    
+
+<%- include('footer') %>
+

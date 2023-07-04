@@ -1,0 +1,159 @@
+
+<%- include('../header') %>
+
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4 mt-5">
+        <form class="mb-5">
+            <div class="input-group">
+                <input class="form-control" type="text" name="search" placeholder="Search.....">
+                <input type="submit" class="btn-primary ms-2 " name="searching" value="Search">
+            </div>
+        </form>
+        <h6 class="mb-4">Brand Table</h6>
+        <div class="table-responsive">
+            <form action="/brand/checkbox" method="post">
+            <table class="table table-hover">
+                <button type="submit" class="btn btn-primary">All Active / Deactive</button>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="allCheckBox">
+                                </th>    
+                                <th scope="col">#</th>
+                                <th scope="col">Category Name</th>
+                                <th scope="col">SubCategory Name</th>
+                                <th scope="col">extracategory Name</th>
+                                <th scope="col">Brand Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">CreatedAt Date</th>
+                                <th scope="col">updatedAt Date</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <% var i=1; for(var sub of subdata){ %>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" name="checkBoxClass" class="checkBoxClass" value="<%= sub.id %>">
+                                    </th>
+                                    <th scope="row"><%= i %></th>
+                                    <td><%= sub.categoryId['categoryName'] %></td>
+                                    <td><%= sub.subcategoryId['subcategoryName'] %></td>
+                                    <td><%= sub.extracategoryId['extracategoryName'] %></td>
+                                    <td><%= sub.brandname %></td>
+
+                                    <td>
+                                    <% if(sub.isActive===true){ %>
+                                        <a href="?active=<%= sub.id %>&page=<%= countdata %>&search=<%= searchdata %>" class="btn btn-success">Active</a>
+                                    <% } else{ %>
+                                        <a href="?deactive=<%= sub.id %>&page=<%= countdata %>&search=<%= searchdata %>" class="btn btn-danger">Deactive</a>
+                                    <% } %> 
+                                    </td>
+
+                                    <td><%= sub.createdAt %></td>
+                                    <td><%= sub.updatedAt %></td>
+                                    <td>
+                                        <a href="/brand/deletedata/<%= sub.id %>">Delete</a>
+                                    </td>
+
+                            <% i++;} %>
+
+                            <tr>
+                                <% for(var i=1; i<=totalpage; i++){ %>
+                                    <td>
+                                        <a style=" padding: 10px 12px; background-color: #2A3F54; color: white;" href="?page=<%= i %>&search=<%= searchdata %>"><%= i %></a>
+                                    </td>
+                                <% } %>
+                                
+                            </tr>
+
+                        </tbody>
+            </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+   <!-- Table Start -->
+   <!-- <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+
+        <form>
+            <div class="input-group">
+                <input class="form-control" type="text" name="search" placeholder="Search.....">
+                <input type="submit" class="btn-primary ms-2 " name="searching" value="Search">
+            </div>
+        </form>
+
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Hoverable Table</h6>
+                <form action="/brand/checkbox" method="post">
+                    <table class="table table-hover">
+                        <button type="submit" class="btn btn-primary">All Active / Deactive</button>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="allCheckBox">
+                                </th>    
+                                <th scope="col">#</th>
+                                <th scope="col">Category Name</th>
+                                <th scope="col">SubCategory Name</th>
+                                <th scope="col">extracategory Name</th>
+                                <th scope="col">Brand Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">CreatedAt Date</th>
+                                <th scope="col">updatedAt Date</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <% var i=1; for(var sub of subdata){ %>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" name="checkBoxClass" class="checkBoxClass" value="<%= sub.id %>">
+                                    </th>
+                                    <th scope="row"><%= i %></th>
+                                    <td><%= sub.categoryId['categoryName'] %></td>
+                                    <td><%= sub.subcategoryId['subcategoryName'] %></td>
+                                    <td><%= sub.extracategoryId['extracategoryName'] %></td>
+                                    <td><%= sub.brandname %></td>
+
+                                    <td>
+                                    <% if(sub.isActive===true){ %>
+                                        <a href="?active=<%= sub.id %>" class="btn btn-success">Active</a>
+                                    <% } else{ %>
+                                        <a href="?deactive=<%= sub.id %>" class="btn btn-danger">Deactive</a>
+                                    <% } %> 
+                                    </td>
+
+                                    <td><%= sub.createdAt %></td>
+                                    <td><%= sub.updatedAt %></td>
+                                    <td>
+                                        <a href="/brand/deletedata/<%= sub.id %>">Delete</a>
+                                    </td>
+
+                            <% i++;} %>
+
+                            <tr>
+                                <% for(var i=1; i<=totalpage; i++){ %>
+                                    <td>
+                                        <a style=" padding: 10px 12px; background-color: #2A3F54; color: white;" href="?page=<%= i %>&search=<%= searchdata %>"><%= i %></a>
+                                    </td>
+                                <% } %>
+                                
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div> -->
+<!-- Table End -->
+
+<%- include('../footer') %>

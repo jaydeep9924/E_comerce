@@ -1,0 +1,225 @@
+  <!-- Footer Section Begin -->
+  <footer class="footer-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                    </div>
+                    <ul>
+                        <li>Address: 60-49 Road 11378 New York</li>
+                        <li>Phone: +65 11.188.888</li>
+                        <li>Email: hello.colorlib@gmail.com</li>
+                    </ul>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1">
+                <div class="footer-widget">
+                    <h5>Information</h5>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Checkout</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Serivius</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="footer-widget">
+                    <h5>My Account</h5>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Shopping Cart</a></li>
+                        <li><a href="#">Shop</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="newslatter-item">
+                    <h5>Join Our Newsletter Now</h5>
+                    <p>Get E-mail updates about our latest shop and special offers.</p>
+                    <form action="#" class="subscribe-form">
+                        <input type="text" placeholder="Enter Your Mail">
+                        <button type="button">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-reserved">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="copyright-text">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                    <div class="payment-pic">
+                        <img src="img/payment-method.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Js Plugins -->
+<script src="/frontPannel/js/jquery-3.3.1.min.js"></script>
+<script src="/frontPannel/js/bootstrap.min.js"></script>
+<script src="/frontPannel/js/jquery-ui.min.js"></script>
+<script src="/frontPannel/js/jquery.countdown.min.js"></script>
+<script src="/frontPannel/js/jquery.nice-select.min.js"></script>
+<script src="/frontPannel/js/jquery.zoom.min.js"></script>
+<script src="/frontPannel/js/jquery.dd.min.js"></script>
+<script src="/frontPannel/js/jquery.slicknav.js"></script>
+<script src="/frontPannel/js/owl.carousel.min.js"></script>
+<script src="/frontPannel/js/main.js"></script>
+
+
+
+<script>
+
+<% if(flash.success && flash.success.length > 0) { %>
+    new Noty({
+      type: 'success',
+      text: '<%= flash.success %>',
+      layout : 'topCenter',
+      timeout : 2000,
+      theme: 'metroui',
+    }).show();
+<% } %>
+
+
+<% if(flash.error && flash.error.length > 0) { %>
+    new Noty({
+      type: 'error',
+      text: '<%= flash.error %>',
+      layout : 'topCenter',
+      theme: 'metroui',  
+      timeout : 3000,
+    }).show();
+<% } %>
+
+</script>
+
+<script>
+
+    $(function(){
+        $(".dropdown-menu > li > a.trigger").on("click",function(e){
+            var current=$(this).next();
+            var grandparent=$(this).parent().parent();
+            if($(this).hasClass('left-caret')||$(this).hasClass('right-caret'))
+                $(this).toggleClass('right-caret left-caret');
+            grandparent.find('.left-caret').not(this).toggleClass('right-caret left-caret');
+            grandparent.find(".sub-menu:visible").not(current).hide();
+            current.toggle();
+            e.stopPropagation();
+        });
+        $(".dropdown-menu > li > a:not(.trigger)").on("click",function(){
+            var root=$(this).closest('.dropdown');
+            root.find('.left-caret').toggleClass('right-caret left-caret');
+            root.find('.sub-menu:visible').hide();
+        });
+    });
+
+
+    var data = document.querySelectorAll('#brandId');
+
+    for(var i=0; i<data.length; i++){
+        data[i].addEventListener('change',brndidData)
+    }
+
+    var brandId = [];
+    function brndidData(){
+        if(this.checked){
+            brandId.push(this.value);
+        }
+        else{
+            var pos = -1;
+            for(var i=0; i<brandId.length; i++){
+                pos = i;
+            }
+            brandId.splice(pos,1)
+        }
+
+        $.ajax({
+            url : '/user/filterdata',
+            method : 'post',
+            data :{
+                filter : brandId
+            },
+            success : (res)=>{
+                console.log(res);
+                $('#showfilterdata').html(res);
+            }
+            
+        })
+
+    };
+
+
+
+    var type = document.querySelectorAll('#typedId');
+    for(var i=0; i<type.length; i++){
+        type[i].addEventListener('change',typefunction);
+    }
+    var typedata = [];
+    function typefunction(){
+        // alert(this.value)
+        if(this.checked){
+            typedata.push(this.value);
+        }
+        else{
+            var pos = -1;
+            for(var i=0; i<typedata.length; i++){
+                pos = i;
+            }
+            typedata.splice(pos,1)
+        }
+        // console.log(typedata);
+        $.ajax({
+            url : '/user/typefilter',
+            method : 'post',
+            data :{
+                typefilter : typedata
+            },
+            success : (res)=>{
+                // console.log(res);
+                $('#showfilterdata').html(res);
+            }
+        });
+    }
+
+
+</script>
+
+<script>
+
+    const movie = document.querySelectorAll('.product');
+    
+    movie.forEach((desc)=>{
+      if(desc.innerText.length > 100){
+        desc.innerText = desc.innerText.substring(0,200)+'......';
+      }
+    }) 
+    
+    
+    </script>
+
+</body>
+
+</html>

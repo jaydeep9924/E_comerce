@@ -1,0 +1,143 @@
+
+<%- include('../header') %>
+
+<!-- Form Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Product Form</h6>
+
+        <form method="post" action="/product/productdata" enctype="multipart/form-data">
+
+          <div class="mb-3">
+            <label for="inputUserName">Select Category</label>
+            <select class="form-control mt-2" name="categoryId" id="categoryId" onchange="getSubcategoryData()">
+              <option value="">--select Category--</option>
+                <% for(var cat of catrecord){ %>
+                  <option value="<%= cat.id %>"><%= cat.categoryName %></option>
+                <% } %>
+            </select>
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.categoryId!='undefined' )? errors.categoryId.msg:''%></p>
+          </div>
+
+          <div class="mb-3">
+            <label for="inputUserName">Select SubCategory</label>
+            <select class="form-control mt-2" name="subcategoryId" id="subcategoryId" onchange="getextracategoryData()">
+              <option value="">--select Subcategory--</option>
+            </select>
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.subcategoryId!='undefined' )? errors.subcategoryId.msg:''%></p>
+          </div>
+
+          <div class="mb-3">
+            <label for="inputUserName">Select ExtraCategory</label>
+            <select class="form-control mt-2" name="extracategoryId" id="extracategoryId" onchange="brandtypedata()">
+              <option value="">--select Extracategory--</option>
+            </select>
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.extracategoryId!='undefined' )? errors.extracategoryId.msg:''%></p>
+          </div>
+
+          <div id="getbrandtype">
+            <div class="mb-3">
+              <label for="inputUserName">Select Type</label>
+              <select class="form-control mt-2" name="typeId" id="typeId" >
+                <option value="">--select Type--</option>
+              </select>
+              <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.typeId!='undefined' )? errors.typeId.msg:''%></p>
+            </div>
+
+            <div class="mb-3">
+              <label for="inputUserName">Select Brand</label>
+              <select class="form-control mt-2" name="brandId" id="brandId" >
+                <option value="">--select Brand--</option>
+              </select>
+              <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.brandId!='undefined' )? errors.brandId.msg:''%></p>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Enter Product Name</label>
+            <input type="text" name="productName" class="form-control">
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.productName!='undefined' )? errors.productName.msg:''%></p>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Enter Product Price</label>
+            <input type="number" name="productPrice" class="form-control">
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.productPrice!='undefined' )? errors.productPrice.msg:''%></p>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Enter Product Old Price</label>
+            <input type="number" name="productOldPrice" class="form-control">
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.productOldPrice!='undefined' )? errors.productOldPrice.msg:''%></p>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Enter description</label>
+            <textarea name="desc" class="form-control"></textarea>
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.desc!='undefined' )? errors.desc.msg:''%></p>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Enter Rating</label>
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rating"
+                       value="1" >
+                    <label class="form-check-label">
+                        1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rating"
+                       value="2">
+                    <label class="form-check-label">
+                        2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rating"
+                       value="3">
+                    <label class="form-check-label">
+                        3
+                    </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="rating"
+                     value="4">
+                  <label class="form-check-label">
+                      4
+                  </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="rating"
+                   value="5">
+                <label class="form-check-label">
+                    5
+                </label>
+            </div>
+            </div>
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.rating!='undefined' )? errors.rating.msg:''%></p>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Select Image</label>
+          <input type="file" name="productImg">
+          <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.productImg!='undefined' )? errors.productImg.msg:''%></p>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Select Multipal Image</label>
+          <input type="file" multiple name="productImages">
+          <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.productImages!='undefined' )? errors.productImages.msg:''%></p>
+        </div>
+
+        <input type="submit" class="btn-primary" value="Add Product">
+
+        </form>
+
+    </div>
+    </div>
+</div>
+
+<%- include('../footer') %>

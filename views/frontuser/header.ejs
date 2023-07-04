@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fashi | Template</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" integrity="sha512-0p3K0H3S6Q4bEWZ/WmC94Tgit2ular2/n0ESdfEX8l172YyQj8re1Wu9s/HT9T/T2osUw5Gx/6pAZNk3UKbESw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/frontPannel/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/frontPannel/css/style.css" type="text/css">
+
+
+<style>
+
+    .dropdown-menu>li
+{	position:relative;
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+	cursor:pointer;
+}
+.dropdown-menu>li {
+    left:  19px;
+}
+.dropdown-menu .sub-menu {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    display:none;
+    margin-top: -1px;
+	border-top-left-radius:0;
+	border-bottom-left-radius:0;
+	border-left-color:#fff;
+	box-shadow:none;
+}
+.right-caret:after,.left-caret:after
+ {	content:"";
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+    display: inline-block;
+    height: 0;
+    vertical-align: middle;
+    width: 0;
+	margin-left:5px;
+}
+.right-caret:after
+{	border-left: 5px solid #ffaf46;
+}
+.left-caret:after
+{	border-right: 5px solid #ffaf46;
+}
+.navbar-collapse {
+    top: 100%;
+    background-color: black;
+    z-index: 99;
+    padding: 14px 24px;
+    position: absolute;
+    align-items: center;
+}
+.navbar-nav .dropdown-menu {
+    position: absolute;
+    top: 20px;
+    left: 80px;
+    color: white;
+    background-color: black;
+    float: none;
+}
+
+.nav-item .nav-menu li .dropdown {
+    position: absolute;
+    right: 0;
+    top: 82px;
+    width: 200px;
+    z-index: 99;
+    background: #252525;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.dropdown-menu{
+    min-width: 7rem;
+}
+
+.dropdown-menu>li {
+    left: 19px;
+    margin: 4px;
+}
+.text-light {
+    color: #f8f9fa!important;
+    margin: 8px;
+}
+
+</style>
+
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class=" fa fa-envelope"></i>
+                        <% if(locals.user){ %>
+                            <%= locals.user.username %>
+                        <% } %>
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        +65 11.188.888
+                    </div>
+                </div>
+                <div class="ht-right">
+                    <% if(locals.user){ %>
+                        <a href="/user/logout" class="login-panel"><i class="fa fa-user"></i>LogOut</a>
+                    <% } else{ %>
+                        <a href="/user/login" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <% } %>
+
+                    <div class="lan-selector">
+                        <select class="language_drop" name="countries" id="countries" style="width:300px;">
+                            <option value='yt' data-image="/img/flag-1.jpg" data-imagecss="flag yt"
+                                data-title="English">English</option>
+                            <option value='yu' data-image="/img/flag-2.jpg" data-imagecss="flag yu"
+                                data-title="Bangladesh">German </option>
+                        </select>
+                    </div>
+                    <div class="top-social">
+                        <a href="#"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="#"><i class="ti-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inner-header">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="logo">
+                            <a href="./index.html">
+                                <img src="img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="advanced-search">
+                            <button type="button" class="category-btn">All Categories</button>
+                            <div class="input-group">
+                                <input type="text" placeholder="What do you need?">
+                                <button type="button"><i class="ti-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3">
+                        <ul class="nav-right">
+                            <li class="heart-icon">
+                             
+                            </li>
+                            <li class="cart-icon">
+                                <a href="/user/shoppingcart">
+                                    <i class="icon_bag_alt"></i>
+                                    
+                                    <span><% if(cartData!=0){ %> <%= cartData %> <% }else{ %><%= cartData %> <% } %></span>
+                                   
+                                </a>
+                              
+                            </li>
+                            <li class="cart-price"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-item">
+            <div class="container">
+                <div class="nav-depart d-flex">
+
+                <div>
+                    <!-- Static navbar -->
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                        <div class="navbar-header">
+
+                            <button type="button" class="navbar-toggle collapsed btn primary-btn" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                All Category
+                            </button>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav ">
+                                <% for(var cat of catrecord){ %>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= cat.categoryName %> <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        
+                                        <% for(var sub of subrecord){ 
+                                           if(sub.categoryId == cat.id){ %>
+                                        <li><a class="trigger right-caret"><%= sub.subcategoryName %></a>
+                                            <ul class="dropdown-menu sub-menu">
+                                               
+                                                <% for(var ext of extrarecord){ 
+                                                   if(ext.categoryId == cat.id && ext.subcategoryId == sub.id){ %>
+                                                <li>
+                                                    <a href="/user/getproduct/<%= cat.id %>/<%= sub.id %>/<%= ext.id %>" class="text-light"><%= ext.extracategoryName %></a>
+                                                </li>
+                                                <% } } %>
+
+                                            </ul>
+                                        </li>
+                                        <% } } %>
+                               
+                                    </ul>
+                                </li>
+                                <% } %>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                        </div><!--/.container-fluid -->
+                    </nav>
+                </div>
+
+            
+                <div>
+                <nav class="nav-menu mobile-menu">
+                    <ul>
+                        <li class="active"><a href="/user">Home</a></li>
+                        <li><a href="/user/shop">Shop</a></li>
+                        <li><a href="/user">Blog</a></li>
+                        <li><a href="/user">Contact</a></li>
+                        <li><a href="/user/confirm_order">My Order</a></li>
+                    </ul>
+                </nav>
+                </div>
+
+            </div>
+                <div id="mobile-menu-wrap"></div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Header End -->

@@ -1,0 +1,78 @@
+
+<%- include('../header') %>
+
+
+<div class="col-12">
+  <div class="bg-light rounded h-100 p-4 mt-5">
+    <form class="mb-4">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="search for....." name="search">
+        <span>
+          <input type="submit" class="btn-primary ms-2 " value="search" name="searching">
+        </span>
+      </div>
+    </form>
+
+      <h6 class="mb-4">Subcategory Table</h6>
+      <div class="table-responsive">
+        <form action="/subcategory/checkbox" method="post">
+          <table class="table">
+            <thead>
+                <button type="submit" class="btn btn-primary">All Active / Deactive</button>
+              <tr>
+                  <th>
+                      <input type="checkbox" id="allCheckBox" />
+                  </th>
+                  <th scope="col">#</th>
+                  <th scope="col">CategoryName</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Created Date</th>
+                  <th scope="col">Updated Date</th>
+                  <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% var i=1; for(var sub of subdata){ %>
+                <tr>
+                    <th>
+                      <input type="checkbox" value="<%= sub.id %>" name="checkBoxClass" class="checkBoxClass">
+                    </th>
+                    <th><%= i %></th>
+                    <td><%= sub.categoryId['categoryName'] %></td>
+                      <td><%= sub.subcategoryName %></td>
+                    <td>
+                      <% if(sub.isActive){ %>
+                        <a href="?active=<%= sub.id %>&page=<%= coundata %>&search=<%= searchdata %>" class="btn btn-success">Active</a>
+                      <% } else{ %>
+                        <a href="?deactive=<%= sub.id %>&page=<%= coundata %>&search=<%= searchdata %>" class="btn btn-danger">Deactive</a>
+                      <% } %>
+                    </td>
+                    <td><%= sub.createdAt %></td>
+                    <td><%= sub.updatedAt %></td>
+                    <td><a href="/subcategory/deletedata/<%= sub.id %>">Delete</a></td>
+                </tr>
+              <% i++;} %>
+
+              <tr>
+
+                
+                  <% for(var i=1; i<=totalpage; i++){ %>
+                    <td>
+                    <a style=" padding: 10px 12px; background-color: #2A3F54; color: white;" href="?page=<%= i %>&search=<%= searchdata %>"><%= i %></a>
+                    </td>
+                  <% } %>
+               
+
+              </tr>
+
+            </tbody>
+          </table>
+        </form>
+      </div>
+  </div>
+</div>
+
+
+
+<%- include('../footer') %>

@@ -1,0 +1,54 @@
+
+
+<%- include('../header') %>
+
+<!-- Form Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Type Form</h6>
+
+        <form method="post" action="/type/gettypeData">
+
+            <div class="mb-3">
+              <label for="inputUserName">Enter Category</label>
+              <select class="form-control mt-2" name="categoryId" id="categoryId" onchange="getSubcategoryData()">
+                <option value="">--select category--</option>
+                <% for(var cat of catdata){ %>
+                  <option value="<%= cat.id %>"><%= cat.categoryName %></option>
+                <% } %>
+              </select>
+              <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.categoryId!='undefined' )? errors.categoryId.msg:''%></p>
+            </div>
+
+            <div class="mb-3">
+              <label for="inputUserName">Enter Category</label>
+              <select class="form-control mt-2" name="subcategoryId" id="subcategoryId" onchange="getextracategoryData()">
+                <option value="">--select Subcategory--</option>
+              </select>
+              <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.subcategoryId!='undefined' )? errors.subcategoryId.msg:''%></p>
+            </div>
+
+            <div class="mb-3">
+              <label for="inputUserName">Enter extracategory</label>
+              <select class="form-control mt-2" name="extracategoryId" id="extracategoryId">
+                <option value="">--select extracategory--</option>
+              </select>
+              <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.extracategoryId!='undefined' )? errors.extracategoryId.msg:''%></p>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Enter Type Name</label>
+              <input type="text" name="typename" class="form-control">
+              <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.typename!='undefined' )? errors.typename.msg:''%></p>
+          </div>
+
+            <input type="submit" class="btn-primary" value="Add Type">
+
+        </form>
+
+    </div>
+    </div>
+</div>
+
+<%- include('../footer') %>

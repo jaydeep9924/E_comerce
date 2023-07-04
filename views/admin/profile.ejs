@@ -1,0 +1,32 @@
+<%- include('header') %>
+    <!-- font icons -->
+    <link rel="stylesheet" href="frontPannel/assets/vendors/themify-icons/css/themify-icons.css">
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <!-- Team Section -->
+    <section id="team ">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="card text-center mb-4">
+                        <img class="card-img-top inset" src="<%= locals.admin.admin_img %>">
+                        <div class="card-body">
+                            <h6 class="small text-primary font-weight-bold"><%= locals.admin.name %></h6>
+                            <h5 class="card-title"><%= locals.admin.email %></h5>
+                            <p><%= locals.admin.desc %></p>
+                            <div class="socials">
+                                <a href="javascript:void(0)"><i class="ti-facebook"></i> </a>
+                                <a href="javascript:void(0)"><i class="ti-github"></i></a>
+                                <a href="javascript:void(0)"><i class="ti-dropbox"></i></a>
+                                <a href="javascript:void(0)"><i class="ti-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Team Sectoin -->
+<%- include('footer') %>
