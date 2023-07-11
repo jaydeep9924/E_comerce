@@ -9,7 +9,6 @@ const comment = require('../../model/frontPannel/comment');
 const register = require('../../model/frontPannel/register');
 const cart = require('../../model/frontPannel/addcart');
 const payment = require('../../model/frontPannel/payment');
-const { openDelimiter } = require('ejs');
 const stripe = require("stripe")("sk_test_51NJA96SBCdMir55xvbEwU7qZNObH63ogACMOLvSLctJMZteizHKmlez7itlSSj5ihKMtqK0ZUs7GqxPEacCeWKEJ00DMSLMClW");
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser')
@@ -120,6 +119,8 @@ module.exports.productview = async (req,res)=>{
   let commentcount = await comment.find({productId : req.params.id}).countDocuments();
   var cartData = 0;
   if(req.user){ 
+    let userCartCount = await cart.find({userId : req.user.id}).countDocuments();
+    req.session.cartData = userCartCount;
     cartData = req.session.cartData;
   }
 
