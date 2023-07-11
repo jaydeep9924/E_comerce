@@ -1,10 +1,7 @@
 
 const category = require('../../model/category');
-
 const type = require('../../model/type');
-
 const brand = require('../../model/brand');
-
 const product = require('../../model/product');
 const { validationResult, matchedData } = require('express-validator');
 
@@ -40,7 +37,6 @@ module.exports.productdata = async (req,res)=>{
     }
     else{
       var inputData = matchedData(req); 
-      // insert query will be written here
       var sinimg = '';  
       if(req.files.productImg){
         sinimg = product.singleImg+'/'+req.files.productImg[0].filename;
@@ -65,7 +61,6 @@ module.exports.productdata = async (req,res)=>{
         return res.redirect('/product');
       }
     } 
-
 };
 
 module.exports.viewproduct = async (req,res)=>{
@@ -146,7 +141,6 @@ module.exports.checkbox = async (req,res)=>{
           req.flash('success', 'Active All');
         }
     }
-    
     return res.redirect('back');
   }
   req.flash('error','Something Wrong');

@@ -1,11 +1,7 @@
 
 const category = require('../../model/category');
-
 const subcategory = require('../../model/subcategory');
-
 const extracategory = require('../../model/extracategory');
-
-// form validator
 const { validationResult, matchedData } = require('express-validator');
 
 module.exports.formpage = async (req,res)=>{
@@ -23,9 +19,7 @@ module.exports.subcategorydata = async (req,res)=>{
   for(var sub of subCatData){
     option += `<option value='${sub.id}'> ${sub.subcategoryName} </option>`;
   }
-
   return res.json(option);
-
 };
 
 module.exports.getextracategory = async (req,res)=>{
@@ -131,7 +125,6 @@ module.exports.checkbox = async (req,res)=>{
           req.flash('success', 'Active All');
         }
     }
-    
     return res.redirect('back');
   }
   req.flash('error', 'Something Wrong');

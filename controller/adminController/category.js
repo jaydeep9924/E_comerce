@@ -1,12 +1,10 @@
 
 const category = require('../../model/category');
-
 const { validationResult, matchedData } = require('express-validator');
 
 module.exports.categorypage = (req,res)=>{
   return res.render('admin/form/category');
 };
-
 module.exports.getcategorydata = async (req,res)=>{
 
   const errors= validationResult(req);

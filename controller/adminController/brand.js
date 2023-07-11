@@ -1,12 +1,8 @@
 
 const category = require('../../model/category');
-
 const subcategory = require('../../model/subcategory');
-
 const extracategory = require('../../model/extracategory');
-
 const brand =  require('../../model/brand');
-// form validator
 const { validationResult, matchedData } = require('express-validator');
 
 module.exports.formpage = async (req,res)=>{
@@ -50,9 +46,6 @@ module.exports.brandadded = async (req,res)=>{
         return res.redirect('/brand');
       }
     }
- 
-  
-  
 };
 
 module.exports.brandData = async (req,res)=>{
@@ -114,7 +107,6 @@ module.exports.brandData = async (req,res)=>{
 module.exports.checkbox = async (req,res)=>{
 
   let check = await req.body.checkBoxClass;
-
   if(check){
     for(var i=0; i<check.length; i++){
 

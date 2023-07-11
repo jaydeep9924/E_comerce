@@ -47,9 +47,11 @@ module.exports.shop = async (req,res)=>{
   let branddata = await brand.find({});
 
   var cartData = 0;
-  if(req.user){ 
-    cartData = req.session.cartData;
-  }
+    if(req.user){ 
+      let userCartCount = await cart.find({userId : req.user.id}).countDocuments();
+      req.session.cartData = userCartCount;
+      cartData = req.session.cartData;
+    }
   return res.render('frontuser/allproduct',{
     productrecord :productdata,
     cartData : cartData,
@@ -95,8 +97,7 @@ module.exports.filterdata = async (req,res)=>{
   const data = await product.find({brandId : req.body.filter});
   return res.render('frontuser/filter',{
     productrecord : data
-  })
-  
+  });
 };
 
 module.exports.typefilter = async (req,res)=>{
@@ -136,31 +137,6 @@ module.exports.productview = async (req,res)=>{
 
 module.exports.comment = async (req,res)=>{
 
-  // let cat = await category.find({isActive : true});
-  // let sub = await subcategory.find({isActive : true});
-  // let extra = await extracategory.find({isActive : true});
-  // let prodata= await product.findById(req.params.id).populate('categoryId').populate('brandId').exec();
-
-  // var cartData = 0;
-  // if(req.user){ 
-  //   cartData = req.session.cartData;
-  // };
-
-  // const errors = validationResult(req)
-  //   if(!errors.isEmpty()) {
-  //       // return res.status(422).jsonp(errors.array())
-  //       const alert = errors.array();
-  //       return res.redirect('back');
-  //       // res.render('frontuser/product', {
-  //       //   alert,
-  //       //   catrecord : cat,
-  //       //   subrecord : sub,
-  //       //   extrarecord : extra,
-  //       //   cartData : cartData,
-  //       //   prorecord : prodata,
-  //       // })
-  //   }
-  //   else{
       var img = '';
       if(req.file){
         img = comment.imgfilename+'/'+req.file.filename;
@@ -176,9 +152,7 @@ module.exports.comment = async (req,res)=>{
       else{
         req.flash('error', 'Something Wrong');
         return res.redirect('back');
-      }
-    // }
-
+      };
 };
 
 module.exports.loginPage = async (req,res)=>{
@@ -228,7 +202,6 @@ module.exports.registerdata = async (req,res)=>{
 
   const errors = validationResult(req)
     if(!errors.isEmpty()) {
-        // return res.status(422).jsonp(errors.array())
         const alert = errors.array()
         res.render('frontuser/register', {
           alert,
@@ -262,14 +235,12 @@ module.exports.registerdata = async (req,res)=>{
 };
 
 module.exports.logindata = async (req,res)=>{
-
   req.flash('success', "Login Successfully");
   return res.redirect('/user');
-
 };
 
 module.exports.addtocart = async (req,res)=>{
-  
+
   if(req.user){
     let check = await cart.find({productId : req.body.productId,userId : req.body.userId});
 
@@ -278,14 +249,12 @@ module.exports.addtocart = async (req,res)=>{
       res.redirect('back');
     }
     else{
-
       let data = await cart(req.body);
       data.save();
       let userCartCount = await cart.find({userId : req.body.userId}).countDocuments();
       req.session.cartData = userCartCount;
-      
+  
       if(data){
-
         req.flash('success','Product Added In Cart');
         res.redirect('back');
       }
@@ -326,7 +295,6 @@ module.exports.shoppingcart = async (req,res)=>{
   else{
     res.redirect('/user/login');
   }
-  
 };
 
 module.exports.quantity = async (req,res)=>{  
@@ -382,10 +350,9 @@ module.exports.checkoutdata = async (req,res)=>{
   else{
     res.redirect('/user/login');
   } 
-}
+};
 
 module.exports.payment = async (req,res)=>{
-
 
   if(req.user){
     let catdata = await category.find({isActive : true});
@@ -414,7 +381,6 @@ module.exports.payment = async (req,res)=>{
         })
     }
     else{
-
       var nDate = new Date().toLocaleString('en-US', {
         timeZone: 'Asia/Calcutta'
       });
@@ -441,13 +407,11 @@ module.exports.payment = async (req,res)=>{
         return res.redirect('back')
       }
     }
-    
   }
   else{
     res.redirect('/user/login');
   } 
-  
-}
+};
 
 module.exports.paymentstripe = async (req,res)=>{
 
@@ -456,8 +420,7 @@ module.exports.paymentstripe = async (req,res)=>{
     await payment.findByIdAndUpdate(update.id,{orderstatus : 'Confirm Order'});
   
     try {
-      await stripe.paymentIntents.create(
-        {
+      await stripe.paymentIntents.create({
           amount: (req.body.totalamount)*100,
           currency: "inr",
           payment_method_types: ["card"],
@@ -468,10 +431,8 @@ module.exports.paymentstripe = async (req,res)=>{
             throw new Error("failed to charge");
           }
           return res.render('frontuser/payment_confirm');
-          // res.status(200).send(paymentIntent);
         }
       );
-  
     } catch (err) {
       console.log(err, "error occure");
     }
@@ -479,34 +440,9 @@ module.exports.paymentstripe = async (req,res)=>{
   else{
     res.redirect('/user/login');
   } 
-
 };
 
-module.exports.payment_confirm =  async (req,res)=>{
-  console.log(req.body.id);
-  console.log(req.body);
-    // var transporter = nodemailer.createTransport({
-    //   host: "sandbox.smtp.mailtrap.io",
-    //   port: 465,
-    //   secure: true,
-    //   auth: {
-    //     user: '04d1f7d73a7dca',
-    //     pass: 'db3478ca96c20a'
-    //   }
-    // });
-
-    // console.log('mail',req.body.email);
-    // let info = await transporter.sendMail({
-    //   from: 'Fashi Shopping', // sender address
-    //   to: req.body.email, // list of receivers
-    //   subject: "Order Details", // Subject line
-    //   text: `<b>Total Amount <b>`, // plain text body
-    //   html: "<b>Hello world?</b>", // html body
-    // });
-}
-
 module.exports.confirm_order = async (req,res)=>{
-  // return res.render('frontuser/confirm_order');
   if(req.user){
 
     let catdata = await category.find({isActive : true});
@@ -541,7 +477,6 @@ module.exports.confirm_order = async (req,res)=>{
 };
 
 module.exports.deletorder = async (req,res)=>{
-  // console.log(req.params.id);
   let data = await payment.findByIdAndDelete(req.params.id);
   if(data){
     req.flash('error','Order Cancel');
@@ -552,8 +487,3 @@ module.exports.deletorder = async (req,res)=>{
     return res.redirect('back');
   }
 };
-
-
-
-
-

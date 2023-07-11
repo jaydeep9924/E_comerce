@@ -1,14 +1,10 @@
 
-const { render } = require('ejs');
 const admin = require('../../model/admin');
-
 const nodemailer =  require('nodemailer');
 const bcrypt = require('bcrypt');
 
-// form validator
 const { validationResult, matchedData } = require('express-validator');
 
-// dashboard
 module.exports.dashboard = async (req,res)=>{
   if(req.isAuthenticated()){
     res.render('admin/dashboard')
@@ -17,27 +13,19 @@ module.exports.dashboard = async (req,res)=>{
     return res.redirect('/loginPage');
   }
 };
-
-// profile
 module.exports.profile = (req,res)=>{
   res.render('admin/profile');
-}
-
-// login page
+};
 module.exports.loginPage = (req,res)=>{
   res.render('admin/login')
 };
-
 module.exports.login = (req,res)=>{
   req.flash('success', "Login Successfully");
   res.redirect('/');
 };
-
-// checkbox
 module.exports.checkbox = async (req,res)=>{
 
   let check = req.body.checkboxid;
-
     for(var i=0; i<check.length; i++){
 
       let data = await admin.findById(check[i]);
@@ -55,27 +43,11 @@ module.exports.checkbox = async (req,res)=>{
       }
     }
     res.redirect('back')
-}
-
-// admin
+};
 module.exports.adminForm = async (req,res)=>{
-
   res.render('admin/form/admin');
 };
-
-module.exports.getadminData = async (req,res)=>{
-
-  // const errors= validationResult(req);
-  //   if(!errors.isEmpty()){
-  //     req.flash('error', "Fill Proper Detalis");
-
-  //     var errMsg= errors.mapped();
-  //     var inputData = matchedData(req);  
-  //     res.render('admin/form/admin', {errors:errMsg, inputData:inputData});  
-  //   }
-  //   else{
-
-  //     var inputData = matchedData(req);  
+module.exports.getadminData = async (req,res)=>{ 
       var img= '';
       if(req.file){
         img = admin.adminImgUploaded+'/'+req.file.filename;
@@ -95,7 +67,7 @@ module.exports.getadminData = async (req,res)=>{
         req.flash('error', "Something Wrong");
         res.redirect('/admin');
       }
-    // } 
+
 };
 
 module.exports.adminData = async (req,res)=>{
@@ -299,5 +271,4 @@ module.exports.resetpassword = async (req,res)=>{
       return res.redirect('/resetpasspage');
     }
   }
-
-}
+};

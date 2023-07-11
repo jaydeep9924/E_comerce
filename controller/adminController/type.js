@@ -1,8 +1,6 @@
 
 const category =  require('../../model/category');
-
 const type =  require('../../model/type');
-
 const { validationResult, matchedData } = require('express-validator');
 
 module.exports.formpage = async (req,res)=>{
@@ -11,7 +9,6 @@ module.exports.formpage = async (req,res)=>{
   return res.render('admin/form/type',{
     catdata : data
   });
-
 };
 
 module.exports.gettypeData = async (req,res)=>{
@@ -26,7 +23,6 @@ module.exports.gettypeData = async (req,res)=>{
     }
     else{
       var inputData = matchedData(req); 
-      // insert query will be written here
       let data = await type(req.body);
       data.save();
 
@@ -38,9 +34,7 @@ module.exports.gettypeData = async (req,res)=>{
         req.flash('error', 'Something Wrong');
         return res.redirect('/type');
       }
-    } 
-
-  
+    }
 };
 
 module.exports.typeData = async (req,res)=>{
@@ -119,7 +113,6 @@ module.exports.checkbox = async (req,res)=>{
           req.flash('success', 'Active All');
         }
     }
-    
     return res.redirect('back');
   }
   req.flash('error','Something Wrong');

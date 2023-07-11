@@ -1,56 +1,22 @@
 
 const express = require('express');
-
 const router = express.Router();
-
 const comment = require('../../model/frontPannel/comment');
-
 const userCon = require('../../controller/frontPannel/index');
 const passport = require('passport');
-
 const bodyParser = require('body-parser')
 const { check, validationResult } = require('express-validator')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-
 router.get('/', userCon.dashboard);
-
 router.get('/shop', userCon.shop);
-
 router.get('/getproduct/:catId/:subId/:extId', userCon.getproductdata);
-
 router.post('/filterdata', userCon.filterdata);
-
 router.post('/typefilter', userCon.typefilter);
-
 router.get('/productview/:id', userCon.productview);
-
-router.post('/comment',
-// [
-//   check('name','Enter Valid Name')
-//   .notEmpty()
-//   .isLength({ min: 3 }),
-//   check('email', 'Email is not valid')
-//   .isEmail()
-//   .normalizeEmail()
-//   .notEmpty(),
-//   check('commentimg').custom((value, { req }) => {
-//     if (!req.file) {
-//       throw new Error('Select Image');
-//     }
-//     return true;
-//   }),
-//   check('message','Enter Valid Message')
-//   .notEmpty()
-//   .isLength({ min: 10 }),
-  
-// ], 
-comment.imguploader, userCon.comment);
-
+router.post('/comment',comment.imguploader, userCon.comment);
 router.get('/login', userCon.loginPage);
-
 router.get('/register', userCon.register);
-
 router.post('/registerdata',urlencodedParser, [
   check('username', 'Email is not valid')
       .isEmail()
@@ -76,15 +42,10 @@ router.get('/logout', (req,res,next)=>{
   });
   return res.redirect('/user')
 });
-
 router.post('/addtocart', userCon.addtocart);
-
 router.get('/shoppingcart', userCon.shoppingcart);
-
 router.post('/quantity', userCon.quantity);
-
 router.get('/deletcart/:id', userCon.deletcart);
-
 router.get('/checkoutdata', userCon.checkoutdata);
 
 router.post('/payment',  [
@@ -111,9 +72,7 @@ router.post('/payment',  [
 ],userCon.payment);
 
 router.post('/paymentstripe', userCon.paymentstripe);
-
-router.get('/payment_confirm', userCon.payment_confirm)
-
 router.get('/confirm_order', userCon.confirm_order);
 router.get('/deletorder/:id', userCon.deletorder);
+
 module.exports = router;
